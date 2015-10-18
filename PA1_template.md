@@ -12,6 +12,23 @@ Step 1:  set up: the "activity.csv" file must be loaded in working directory in 
 
 ```r
 require(dplyr)
+```
+
+```
+## Loading required package: dplyr
+## 
+## Attaching package: 'dplyr'
+## 
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 activity<- read.csv("activity.csv")
 activity$interval<-as.factor(activity$interval)
 ```
@@ -59,6 +76,11 @@ Step 3a) Make a time series plot of 5-minute interval (on the x-axis) and avg nu
 ```r
 by_interval <- group_by(activity, interval)
 activityintervalsum <- summarise(by_interval, count = n(), stepsum = sum(steps, na.rm = TRUE), stepmean = mean(steps, na.rm = TRUE), stepmax = max(steps, na.rm = TRUE))
+par(mfrow = c(1, 1))
+  plot(activityintervalsum$stepmean, xlab = "Interval", ylab = "Mean steps", main = "Mean Steps Taken/Interval")
+```
+
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 ```
 
 3b) Calculate which 5-minute interval, on average across all days in the dataset, contains the maximum number of steps?
